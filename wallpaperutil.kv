@@ -1,0 +1,91 @@
+BoxLayout:
+    orientation: 'vertical'
+    canvas.before:
+        Color:
+            rgba: 0.12, 0.23, 0.30, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    ActionBar:
+        pos_hint: {'top':1}
+        ActionView:
+            use_separator: True
+            ActionPrevious:
+                title: 'wallhaven'
+                app_icon_width: 0.1
+                width: 0
+                app_icon_height: 0
+                # size_hint_x: None
+                with_previous: False
+            ActionTextInput:
+                id: search
+                name: 'search'
+                multiline: False
+                padding_y: (self.height - self.line_height) / 2
+                padding_x: 10
+                hint_text: 'Search'
+                on_text_validate: app.do_search(self.text)
+            ActionButton:
+                icon: 'icons/icons8-Search-48.png'
+                on_press: app.do_search(search.text)
+            ActionOverflow:
+                overflow_image: 'icons/icons8-Menu-48.png'
+            # Categories
+            ActionToggleButton:
+                text: 'General'
+                state: 'down'
+                on_state: app.general = True if app.general == False else False
+            ActionToggleButton:
+                text: 'Anime'
+                state: 'down'
+                on_state: app.anime = True if app.anime == False else False
+            ActionToggleButton:
+                text: 'People'
+                state: 'down'
+                on_state: app.people = True if app.people == False else False
+            ActionSeparator:
+            # Purity
+            ActionToggleButton:
+                text: 'SFW'
+                state: 'down'
+                on_state: app.sfw = True if app.sfw == False else False
+            ActionToggleButton:
+                text: 'Sketchy'
+                on_state: app.sketchy = True if app.sketchy == False else False
+            ActionToggleButton:
+                text: 'NSFW'
+                on_state: app.nsfw = True if app.nsfw == False else False
+            ActionSeparator:
+            ActionButton:
+                id: sorting
+                text: 'Relevance'
+                on_press: app.cycle_sorting()
+            ActionToggleButton:
+                id: order
+                icon: 'icons/icons8-down-arrow-48.png'
+                on_state: app.toggle_order()
+            ActionToggleButton:
+                id: size
+                text: 'Exact'
+                on_press: app.toggle_size()
+            ActionButton:
+                icon: 'icons/icons8-Settings-48.png'
+    Image:
+        id: wallpaper_preview
+        source: 'wallpaper.png'
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint: (1, .10)
+        Button:
+            on_press: app.new_wallpaper()
+            on_release: wallpaper_preview.reload()
+            Image:
+                source: 'icons/icons8-Refresh-48.png'
+                y: self.parent.y + (self.parent.height / 2) - 48
+                x: self.parent.x + (self.parent.width / 2) - 48
+        Button:
+            on_press: app.apply_wallpaper()
+            Image:
+                source: 'icons/icons8-Checkmark-48.png'
+                y: self.parent.y + (self.parent.height / 2) - 48
+                x: self.parent.x + (self.parent.width / 2) - 48
