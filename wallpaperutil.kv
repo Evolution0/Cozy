@@ -34,27 +34,39 @@ BoxLayout:
             ActionToggleButton:
                 text: 'General'
                 state: 'down'
-                on_state: app.general = True if app.general == False else False
+                on_state:
+                    if app.category[0] is '0': app.category = app.category[:0] + '1' + app.category[1:]
+                    else: app.category = app.category[:0] + '0' + app.category[1:]
             ActionToggleButton:
                 text: 'Anime'
                 state: 'down'
-                on_state: app.anime = True if app.anime == False else False
+                on_state:
+                    if app.category[1] is '0': app.category = app.category[:1] + '1' + app.category[2:]
+                    else: app.category = app.category[:1] + '0' + app.category[2:]
             ActionToggleButton:
                 text: 'People'
                 state: 'down'
-                on_state: app.people = True if app.people == False else False
+                on_state:
+                    if app.category[2] is '0': app.category = app.category[:2] + '1' + app.category[3:]
+                    else: app.category = app.category[:2] + '0' + app.category[3:]
             ActionSeparator:
             # Purity
             ActionToggleButton:
                 text: 'SFW'
                 state: 'down'
-                on_state: app.sfw = True if app.sfw == False else False
+                on_state:
+                    if app.purity[0] is '0': app.purity = app.purity[:0] + '1' + app.purity[1:]
+                    else: app.purity = app.purity[:0] + '0' + app.purity[1:]
             ActionToggleButton:
                 text: 'Sketchy'
-                on_state: app.sketchy = True if app.sketchy == False else False
+                on_state:
+                    if app.purity[1] is '0': app.purity = app.purity[:1] + '1' + app.purity[2:]
+                    else: app.purity = app.purity[:1] + '0' + app.purity[2:]
             ActionToggleButton:
                 text: 'NSFW'
-                on_state: app.nsfw = True if app.nsfw == False else False
+                on_state:
+                    if app.purity[2] is '0': app.purity = app.purity[:2] + '1' + app.purity[3:]
+                    else: app.purity = app.purity[:2] + '0' + app.purity[3:]
             ActionSeparator:
             ActionButton:
                 id: sorting

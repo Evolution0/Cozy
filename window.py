@@ -19,30 +19,10 @@ class ActionTextInput(TextInput, ActionItem):
 class WallpaperUtil(App):
     def __init__(self):
         super().__init__()
-        self.general = True
-        self.anime = True
-        self.people = True
-        self.sfw = True
-        self.sketchy = False
-        self.nsfw = False
+        self.purity = '100'
+        self.category = '111'
         self.order = 'descending'
         self.size = 'exact'
-
-        # if not three digits long add leading zeros till it is
-        # do this after adding them together as ints, then convert
-        # to a string
-
-        self.categories = {
-            'general': 100,
-            'anime': 10,
-            'people': 1
-        }
-
-        self.purity_level = {
-            'sfw': 100,
-            'sketchy': 10,
-            'nsfw': 1
-        }
 
         self.sorting = {
             'date': 'date_added',
@@ -109,43 +89,9 @@ class WallpaperUtil(App):
         base_url = "https://alpha.wallhaven.cc/"
         image_server = "https://wallpapers.wallhaven.cc/"
 
-        if self.sfw is True and self.sketchy is True and self.nsfw is True:
-            purity = '111'
-        elif self.sfw is True and self.sketchy is True and self.nsfw is False:
-            purity = '110'
-        elif self.sfw is True and self.sketchy is False and self.nsfw is False:
-            purity = '100'
-        elif self.sfw is False and self.sketchy is True and self.nsfw is True:
-            purity = '011'
-        elif self.sfw is False and self.sketchy is False and self.nsfw is True:
-            purity = '001'
-        elif self.sfw is False and self.sketchy is True and self.nsfw is False:
-            purity = '010'
-        elif self.sfw is True and self.sketchy is False and self.nsfw is True:
-            purity = '101'
-        else:
-            purity = '000'
-
-        if self.general is True and self.anime is True and self.people is True:
-            category = '111'
-        elif self.general is True and self.anime is True and self.people is False:
-            category = '110'
-        elif self.general is True and self.anime is False and self.people is False:
-            category = '100'
-        elif self.general is False and self.anime is True and self.people is True:
-            category = '011'
-        elif self.general is False and self.anime is False and self.people is True:
-            category = '001'
-        elif self.general is False and self.anime is True and self.people is False:
-            category = '010'
-        elif self.general is True and self.anime is False and self.people is True:
-            category = '101'
-        else:
-            category = '000'
-
         options = {
-            'categories': category,
-            'purity': purity,
+            'categories': self.category,
+            'purity': self.purity,
             'resolutions': resolution,
             # Todo: Add a button for this
             'sorting': self.sorting[self.root.ids.sorting.text.lower()],
